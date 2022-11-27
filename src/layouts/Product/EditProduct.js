@@ -21,9 +21,13 @@ function EditCategory() {
     const { token } = useContext(AuthContext);
     console.log("token",token)
     
-    const [category, setCategory] = useState({
-        categoryName: '',
-        image: '',
+    const [Products, setProducts]= useState({
+        productName:'',
+        description:'',
+        categoryId:'',
+        productQty:'',
+        price:'',
+        image:'',
     })
     const { id } = useParams()
     const navigate = useNavigate()
@@ -41,7 +45,7 @@ function EditCategory() {
         const json = await edit.json()
         alert(json.messages.join(' '))
         if (json.success) {
-            navigate('/categories')
+            navigate('/product')
         }
     }
 

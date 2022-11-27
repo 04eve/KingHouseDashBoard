@@ -16,21 +16,20 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "context/Auth";
 
-function Comment() {
+function Product() {
     const columns = [
         { Header: "id", accessor: "id", align: "left" },
-        { Header: "content", accessor: "content", align: "left" },
-        { Header: "userId", accessor: "userId", align: "center" },
-        { Header: "reviewId", accessor: "reviewId", align: "center" },
+        { Header: "Product", accessor: "Product", align: "left" },
+        { Header: "image", accessor: "image", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
     const [rows, setRows] = useState([]);
     const [tableRows, setTableRows] = useState([])
-    const{token}= useContext(AuthContext)
-    console.log("Token is ",token)
-    const deletecomment = async (id) => {
-        if (window.confirm('Are you sure you want to delete this comment?')) {
-            const deleted = await fetch(`http://localhost:3000/comments/` + id, {
+    const { token } = useContext(AuthContext)
+    // console.log("Token is ",token)
+    const deleteProduct = async (id) => {
+        if (window.confirm('Are you sure you want to delete this Product?')) {
+            const deleted = await fetch(`http://localhost:3000/Product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -38,8 +37,8 @@ function Comment() {
                 },
             })
             const result = await deleted.json()
-            const remainedRows = rows.filter((comment) => {
-                return comment.id != id
+            const remainedRows = rows.filter((Product) => {
+                return Product.id != id
             })
             setRows(remainedRows)
             alert(result.messages.join(' '))
@@ -47,17 +46,20 @@ function Comment() {
 
     }
     useEffect(() => {
-        const jsxRows = rows?.map((comment) => {
+        const jsxRows = rows?.map((Product) => {
             return {
-                id: <>{comment.id}</>,
-                content: <>{comment.content}</>,
-                userId: <>{comment.userId}</>,
-                reviewId: <>{comment.reviewId}</>,
+                id: <>{Product.id}</>,
+                Product: <>{Product.Product}</>,
+                image: <>
+                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
+                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
+                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
+                </>,
                 options: <>
-                    <MDButton variant="text" color="error" onClick={() => { deletecomment(comment.id) }}>
+                    <MDButton variant="text" color="error" onClick={() => { deleteProduct(Product.id) }}>
                         <Icon>delete</Icon>&nbsp;delete
                     </MDButton>
-                    <Link to={`/comments/${comment.id}`}>
+                    <Link to={`/Product/${Product.id}`}>
                         <MDButton variant="text" color="dark">
                             <Icon>edit</Icon>&nbsp;edit
                         </MDButton>
@@ -68,12 +70,12 @@ function Comment() {
         setTableRows(jsxRows);
     }, [rows])
     useEffect(() => {
-        async function getComments() {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/comments/all`);
-            const comments = await data.json()
-            setRows(comments.data)
+        async function getCategories() {
+            const data = await fetch(`http://localhost:3000/categories`);
+            const categories = await data.json()
+            setRows(categories.data)
         }
-        getComments();
+        getCategories();
     }, []);
     return (
         <DashboardLayout>
@@ -100,18 +102,17 @@ function Comment() {
                                 >
                                     <Grid item>
                                         <MDTypography variant="h6" color="white">
-                                        Comment List
+                                            products List
                                         </MDTypography>
                                     </Grid>
                                     <Grid item>
-                                        <Link to='/comments/add'>
+                                        <Link to='/product/add'>
                                             <MDButton variant="text" color="white">
                                                 <Icon>add_circle</Icon>&nbsp;Add
                                             </MDButton>
                                         </Link>
                                     </Grid>
                                 </Grid>
-
                             </MDBox>
                             <MDBox pt={3}>
                                 <DataTable
@@ -133,4 +134,4 @@ function Comment() {
     );
 }
 
-export default Comment;
+export default Product;

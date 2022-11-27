@@ -88,50 +88,6 @@ function EditUser() {
                                     <MDBox mb={3}><TextField name="password" fullWidth label="Password" value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} /></MDBox>
                                     <MDBox mb={3}><TextField name="phone" fullWidth value={user.passwordConfirmation} label="phone" onChange={(e) => setUser({...user, phone: e.target.value})} /></MDBox>
                                     <MDBox>
-                                    {/* <MDBox mb={3}>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DateTimePicker
-                                                value={trip.date}
-                                                renderInput={(props) => <TextField name="date" fullWidth {...props} />}
-                                                label="Trip Date"
-                                                inputFormat="YYYY-MM-DD HH:mm:ss"
-                                                mask="____-__-__ __:__:__"
-                                                onChange={(newValue) => {
-                                                    setTrip({ ...trip, date: dayjs(newValue).format("YYYY-MM-DD HH:mm:ss") })
-                                                }}
-                                            />
-                                        </LocalizationProvider>
-                                    </MDBox> */}
-                                    {/* <MDBox mb={3}>
-                                        <Grid container spacing={2}>
-                                            {
-                                                trip.Photos.map((photo, i) => {
-                                                    return (
-                                                        <Grid item key={i}>
-                                                            <Avatar
-                                                                alt=""
-                                                                variant="square"
-                                                                src={photo.file}
-                                                                sx={{ width: 150, height: 150 }}
-                                                            />
-                                                            <IconButton aria-label="delete" onClick={() => {deletePhoto(photo.id)}}>
-                                                                <DeleteIcon />
-                                                            </IconButton>
-                                                        </Grid>
-                                                    )
-                                                })
-                                            }
-                                        </Grid>
-                                        <Button variant="contained" component="label" color='primary'>
-                                            <MDTypography color='white' variant="p">
-                                                <Grid container spacing={1}>
-                                                    <Grid item><Icon>photo_library</Icon></Grid>
-                                                    <Grid item>Upload Photos</Grid>
-                                                </Grid>
-                                            </MDTypography>
-                                            <input hidden name="photo" accept="image/*" multiple type="file" />
-                                        </Button>
-                                    </MDBox> */}
                                     <MDBox>
                                         <Button variant="contained" type="submit">
                                             <MDTypography color='white' variant="p">

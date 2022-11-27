@@ -29,7 +29,7 @@ function Category() {
     // console.log("Token is ",token)
     const deleteCategory = async (id) => {
         if (window.confirm('Are you sure you want to delete this category?')) {
-            const deleted = await fetch(`http://localhost:3000/categories`, {
+            const deleted = await fetch(`http://localhost:3000/categories/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
