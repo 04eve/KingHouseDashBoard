@@ -20,6 +20,7 @@ function Product() {
     const columns = [
         { Header: "id", accessor: "id", align: "left" },
         { Header: "Product", accessor: "Product", align: "left" },
+        { Header: "Description", accessor: "Description", align: "left" },
         { Header: "image", accessor: "image", align: "center" },
         { Header: "options", accessor: "options", align: "center" },
     ];
@@ -29,7 +30,7 @@ function Product() {
     // console.log("Token is ",token)
     const deleteProduct = async (id) => {
         if (window.confirm('Are you sure you want to delete this Product?')) {
-            const deleted = await fetch(`http://localhost:3000/Product/${id}`, {
+            const deleted = await fetch(`http://localhost:3000/Products/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
@@ -49,11 +50,13 @@ function Product() {
         const jsxRows = rows?.map((Product) => {
             return {
                 id: <>{Product.id}</>,
-                Product: <>{Product.Product}</>,
-                image: <>
-                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
-                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
-                    <img src={Product.image} alt="Girl in a jacket" width="150" height="160" />
+                Product: <>{Product.productName}</>,
+                Description: <>{Product.description}</>,
+                image: <>{
+                    Product.ProductPhotos.map(ele => {
+                        return  <img src={ele.file} alt="Girl in a jacket" width="150" height="160" />
+                    })
+                }
                 </>,
                 options: <>
                     <MDButton variant="text" color="error" onClick={() => { deleteProduct(Product.id) }}>
@@ -71,7 +74,7 @@ function Product() {
     }, [rows])
     useEffect(() => {
         async function getCategories() {
-            const data = await fetch(`http://localhost:3000/categories`);
+            const data = await fetch(`http://localhost:3000/Products`);
             const categories = await data.json()
             setRows(categories.data)
         }

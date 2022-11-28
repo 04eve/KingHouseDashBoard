@@ -71,9 +71,10 @@ function Users() {
     },[]);
     setTableRows(jsxRows);
   }, [rows])
+
   useEffect(() => {
     async function getUsers() {
-      const data = await fetch(`http://localhost:3000/users`);
+      const data = await fetch(`http://localhost:3000/admin`);
       const userss = await data.json()
       setRows(userss.data)
     }

@@ -27,8 +27,13 @@ function AddProduct() {
         categoryId:'',
         productQty:'',
         price:'',
-        image:'',
+        // files:'',
     })
+    // const [ProductPhoto, setProductPhoto]= useState({
+    //     productId: Products.id,
+    //     file: photo.file,
+        
+    // })
     const navigate = useNavigate()
     const addProducts = async (event) => {
         let GalleryDate = new FormData(event.target);
@@ -36,9 +41,9 @@ function AddProduct() {
         console.log(Products) 
         const added = await fetch(`http://localhost:3000/products`, {
             method: 'POST',
-            body:GalleryDate,
+            body: GalleryDate,
             headers: {
-                "Content-Type": "application/json",
+                // "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`, 
             },
   
@@ -73,13 +78,13 @@ function AddProduct() {
                                                     <Grid item>Upload file</Grid>
                                                 </Grid>
                                             </MDTypography>
-                                            <input name='image' hidden accept="image/*" multiple type="file" />
+                                            <input name='file' hidden accept="file/*" multiple type="file" />
                                         </Button>
                                     </MDBox>
                                     <MDBox>
                                         <Button variant="contained" type="submit">
                                             <MDTypography color='white' variant="p">
-                                                Add A New Products
+                                                Add A New Product
                                             </MDTypography>
                                         </Button>
                                     </MDBox>
